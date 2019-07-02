@@ -14,6 +14,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.post('/', async (req, res) => {
+  const { time, duration, date } = req.params;
   const answer = await request(
     'https://converge-api-test.andela.com/mrm',
     query
@@ -21,7 +22,9 @@ app.post('/', async (req, res) => {
 
   console.log('request', answer);
   return res.json({
-    fulfillmentText: `hello world ${answer.allLocations[0].rooms.length}`,
+    fulfillmentText: `Cool, your meeting was scheduled on ${date} at ${time} and is supposed to last ${duration} see you there!. here are some data fetched from GraphQL ${
+      answer.allLocations[0].rooms.length
+    }`,
     payload: {
       google: {
         expectUserResponse: false,
