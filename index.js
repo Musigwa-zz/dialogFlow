@@ -14,7 +14,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.post('/', async (req, res) => {
-  const { time, duration, date } = req.query;
+  const { time, duration, date } = req.headers;
   const answer = await request(
     'https://converge-api-test.andela.com/mrm',
     query
